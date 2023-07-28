@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PatientController!{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <table class="table table-stripped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Age</th>
+                <th>Sexe</th>
+                <th>Poids</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+                <tr>
+                    <td>{{patient.nom}}</td>
+                    <td>{{patient.prenom}}</td>
+                    <td>{{patient.age}}</td>
+                    <td>{{patient.sexe}}</td>
+                    <td>{{patient.poids}}</td>
+                    <td><a href="{{path("new_consul",{'matricule': patient.matricule})}}" class="btn btn-primary"> Consultation </a></td>
+                    <td><a href="#" class="btn btn-success">HEy</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

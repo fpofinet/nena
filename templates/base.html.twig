@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Hopital{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> 
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #} 
+    {% block stylesheets %} 
+        {{ encore_entry_link_tags('app') }} 
+    {% endblock %} {% block javascripts %} 
+        {{ encore_entry_script_tags('app') }} 
+    {% endblock %}
+</head>
+
+<body class="">
+    <header class="bg-dark mb-0">
+        <div class="container px-4 px-lg-5">
+            <div class="text-center text-white">
+                <p class="lead fw-normal text-white display-1">Hôpital</p>
+            </div>
+        </div>
+    </header>
+    <nav class="navbar navbar-expand-sm bg-secondary justify-content-center mt-0 mb-4 text-light" >
+        <ul class="navbar-nav h5">
+            <li class="nav-item">
+                <a class="nav-link btn btn-secondary mx-2" href="{{path("app_home")}}">ACCUEIL</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-secondary mx-2" href="{{path("app_patient")}}">Patient</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-secondary mx-2" href="#">link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-secondary mx-2" href="#">link</a>
+            </li>
+        </ul>
+    </nav>
+    {% block body %}{% endblock %}
+</body>
+
+</html>
