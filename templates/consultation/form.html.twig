@@ -1,19 +1,25 @@
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Eleve{% endblock %}
+{% block title %}Consultation{% endblock %}
 {% block body %}
 <section class="container mt-3">
     <div class="row">
-        <div class="col-lg-6 mx-auto">
-            <p class="h3 bg-dark text-light text-center">Consultation</p>
-            {{form_start(form)}}
-                {{form_widget(form)}}
-                <hr>
-                <button class="btn btn-primary">
-                    ENREGISTRER
-                </button>
-            {{form_end(form)}}
+        <div class="col-lg-8 mx-auto mt-5">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <p class="h3 text-center">Consultation</p>
+                </div>
+                <div class="card-body">
+                    {{form_start(form)}}
+                        {{form_widget(form)}}
+                        <hr>
+                        <button class="btn btn-primary">
+                            ENREGISTRER
+                        </button>
+                    {{form_end(form)}}
+                </div>
+            </div> 
         </div>
     </div>
 </section>

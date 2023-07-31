@@ -6,6 +6,7 @@ use App\Entity\Patient;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class PatientType extends AbstractType
 {
@@ -14,7 +15,13 @@ class PatientType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('sexe')
+            ->add('sexe',ChoiceType::class, [
+                'choices'  => [
+                    'Feminin' => "F",
+                    'Masculin' => "M",
+                ],
+                'label'=>'Sexe',
+            ])
             ->add('age')
             ->add('poids')
             ->add('adresse')

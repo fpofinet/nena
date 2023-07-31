@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PatientController!{% endblock %}
+{% block title %}Patient{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -15,6 +15,7 @@
                 <th>Poids</th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +27,8 @@
                     <td>{{patient.sexe}}</td>
                     <td>{{patient.poids}}</td>
                     <td><a href="{{path("new_consul",{'matricule': patient.matricule})}}" class="btn btn-primary"> Consultation </a></td>
-                    <td><a href="#" class="btn btn-success">HEy</a></td>
+                    <td><a href="{{path("dossier_patient",{'matricule': patient.matricule})}}" class="btn btn-success">Voir dossier</a></td>
+                    <td><a href="{{path("modifier_patient",{'id': patient.id})}}" class="btn btn-warning">Modifier</a></td>
                 </tr>
             {% endfor %}
         </tbody>

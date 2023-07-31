@@ -47,12 +47,22 @@ class PatientController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    /**
+     * @Route("/patient/{matricule}/dossier", name="dossier_patient")
+     */
+    public function dossierPatient($matricule,ManagerRegistry $doctrine):Response
+    {
+        $patient = $doctrine->getRepository(Patient::class)->findOneBy(["matricule"=>$matricule]);
+        return $this->render('patient/dossier.html.twig', [
+            'patient' => $patient,
+        ]);
+    }
     /**
      * @Route("/patient/{id}/modifier", name="modifier_patient")
      */
-    public function modifierPatient(Patient $patient,Request $request,ManagerRegistry $doctrine){
+    public function modifierPatient($id,Request $request,ManagerRegistry $doctrine){
 
+        $patient = $doctrine->getRepository(Patient::class)->findOneBy(["id"=>$id]);
         $form =$this->createForm(PatientType::class,$patient);
         $form->handleRequest($request);
 
@@ -79,6 +89,9 @@ class PatientController extends AbstractController
         return $this->redirectToRoute("app_patient");
     }
 
+    /*
+     * Cette methode permet de generer des matricule
+     */
     private function generateMatricule($length = 4, $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ')
     {
         $charactersLength = strlen($characters);
