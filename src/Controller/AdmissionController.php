@@ -14,22 +14,23 @@ class AdmissionController extends AbstractController
     /**
      * @Route("/admission", name="app_admission")
      */
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(AdmissionService $service): Response
     {
-        $patients=$doctrine->getRepository(Patient::class)->findAll();
+        $patients=$service->GetQueue();
         return $this->render('admission/index.html.twig', [
             'patients' => $patients,
         ]);
     }
 
     /**
-     * @Route("/admission/queue", name="queue")
+     * @Route("/admission/add", name="add_q")
      */
-    public function renderQueue(AdmissionService $service):Response
+    public function renderQueue(ManagerRegistry $doctrine):Response
     {
-        dd($service->GetQueue());
+        //dd($service->GetQueue());
+        $patients=$doctrine->getRepository(Patient::class)->findAll();
         return $this->render('admission/list.html.twig', [
-            'queue' => $service->GetQueue(),
+            'patients'=>$patients
         ]);
     }
     /**
@@ -37,7 +38,6 @@ class AdmissionController extends AbstractController
      */
     public function addAdmission($matricule,ManagerRegistry $doctrine,AdmissionService $service): Response
     {
-
         $patient=$doctrine->getRepository(Patient::class)->findOneBy(["matricule"=>$matricule]);
         $service->addQueue($patient);
         return $this->redirectToRoute("app_admission");

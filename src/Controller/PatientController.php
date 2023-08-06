@@ -37,10 +37,10 @@ class PatientController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $patient->setAddedAt(new \DateTimeImmutable());
             $patient->setMatricule($this->generateMatricule());
-           // dd($patient);
+            $matri=$patient->getMatricule();
             $doctrine->getManager()->persist($patient);
             $doctrine->getManager()->flush();
-            return $this->redirectToRoute("app_patient");
+            return $this->redirectToRoute("add_admission",["matricule"=>$matri]);
         }
 
         return $this->renderForm('patient/form.html.twig', [

@@ -4,13 +4,28 @@
 
 {% block body %}
 <section class="container">
-    {% for patient in patients %}
-        <div class="w-25 fw-bold m-4">
-            {{patient.matricule}}
-            <a href="{{path("add_admission",{'matricule': patient.matricule})}}" class="btn btn-primary m-5">Queue</a>
-            <a href="{{path("rm_admission",{'matricule': patient.matricule})}}" class="btn btn-danger m-5"> rmQueue</a>
-        </div>
-        
-    {% endfor %}
+    <div class="">
+        <p class="h1 text-center fw-bold">FILE D'ATTENTE </p>
+    </div>
+    <div class="w-50 mx-auto">
+        <a href="{{path("add_q")}}" class="btn btn-lg btn-primary"> Ajouter</a>
+    </div>
+    <div class="mt-4">
+        {% if patients == null %}
+            <p class="text-center fw-bold mt-5">La file d'attente est vide .</p>
+        {% else %}
+            <div class="row gy-3">
+                {% for p in patients %}
+                    <div class="col-md-3">
+                        <div class="card p-3 bg-secondary">
+                            <p class="h3">{{p.matricule}}</p>
+                            <p><span class="fw-bold">{{p.nom }}</span><span class=""> {{ p.prenom}}</span></p>
+                            <a href="{{path("rm_admission",{'matricule': p.matricule})}}" class="btn btn-danger">retirer</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 </section>
 {% endblock %}

@@ -1,5 +1,52 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <h1>hello</h1>
+    <style>
+        .hide{
+            display: none;
+            margin: 0px;
+        }
+    </style>
+    <section class="container">
+        <div class="container-fluid w-50 mx-auto">
+            <form action="" class="form-inline">
+                <div class="">
+                    <input type="search" class="form-control" name="search" id="search" placeholder="rechercher">
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="container mt-4 w-25">
+        <div class="d-flex flex-column">
+            {% for patient in patients %}
+                <div class="mt-3">
+                    <div class="card p-3 bg-secondary hide">
+                        <p class="h3" id="code">{{patient.matricule}}</p>
+                        <p><span class="fw-bold">{{patient.nom }}</span><span class=""> {{ patient.prenom}}</span></p>
+                        <a href="{{path("add_admission",{'matricule': patient.matricule})}}" class="btn btn-primary">Ajouter</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+   
+    <script>
+        const bar= document.querySelector("#search");
+        const pts = document.querySelectorAll("#code");
+        //console.log(patients);
+        bar.addEventListener("input",(e)=>{
+            //console.log(e.target.value);
+            let saisie=e.target.value;
+            pts.forEach((pt)=>{
+                //console.log(pt.textContent);
+                if(pt.textContent.indexOf(saisie.toUpperCase())>=0){
+                    console.log(pt.parentNode);
+                    pt.parentNode.style.display="block";
+                } else {
+                    pt.parentNode.style.display="none";
+                }
+                
+            });
+        })
+    </script>
 {% endblock body %}
