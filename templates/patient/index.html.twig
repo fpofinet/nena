@@ -4,7 +4,9 @@
 
 {% block body %}
 <div class="container">
-
+    <div class="">
+        <a href="{{path("nouveau_patient")}}" class="btn btn-lg btn-primary">Ajouter</a>
+    </div>
     <table class="table table-stripped">
         <thead>
             <tr>
@@ -30,6 +32,7 @@
                     <td>{{patient.poids}}</td>
                     {% if is_granted("ROLE_RECEPTIONISTE") %}
                         <td><a href="{{path("add_admission",{'matricule': patient.matricule})}}" class="btn btn-primary">Ajouter à la file</a></td>
+                        <td><a href="{{path("fiche_patient",{'matricule': patient.matricule})}}" class="btn btn-success">fiche patient</a></td>
                         <td><a href="{{path("modifier_patient",{'id': patient.id})}}" class="btn btn-warning">Modifier</a></td>
                     {% endif %}
                     {% if is_granted("ROLE_MEDECIN") %}

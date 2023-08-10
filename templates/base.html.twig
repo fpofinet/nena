@@ -21,22 +21,24 @@
             </div>
         </div>
     </header>
-    <nav class="navbar navbar-expand-sm bg-secondary justify-content-center mt-0 mb-4 text-light" >
+    <nav class="navbar navbar-expand-sm bg-secondary justify-content-center mt-0 mb-4" >
         <ul class="navbar-nav h5">
             <li class="nav-item">
                 {% if is_granted("ROLE_RECEPTIONISTE") %}
-                    <a class="nav-link btn btn-secondary mx-2" href="{{path("reception_home")}}">ACCUEIL</a>
+                    <a class="nav-link btn btn-secondary mx-2 text-white" href="{{path("reception_home")}}">ACCUEIL</a>
                 {% endif %}
                 {% if is_granted("ROLE_MEDECIN") %}
-                    <a class="nav-link btn btn-secondary mx-2" href="{{path("medecin_home")}}">ACCUEIL</a> 
+                    <a class="nav-link btn btn-secondary mx-2 text-white" href="{{path("medecin_home")}}">ACCUEIL</a> 
                 {% endif %}            
             </li>
             <li class="nav-item">
-                <a class="nav-link btn btn-secondary mx-2" href="{{path("app_patient")}}">Patient</a>
+                <a class="nav-link btn btn-secondary mx-2 text-white" href="{{path("app_patient")}}">Patients</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link btn btn-secondary mx-2" href="#">link</a>
-            </li>
+            {% if is_granted("ROLE_RECEPTIONISTE") %}
+                <li class="nav-item">
+                    <a class="nav-link btn btn-secondary mx-2 text-white" href="{{path("app_admission")}}">File d'attente</a>
+                </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link btn btn-secondary mx-2" href="#">link</a>
             </li>

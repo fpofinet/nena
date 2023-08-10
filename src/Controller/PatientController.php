@@ -61,6 +61,17 @@ class PatientController extends AbstractController
             'patient' => $patient,
         ]);
     }
+
+    /**
+     * @Route("/patient/{matricule}/fiche", name="fiche_patient")
+     */
+    public function fichePatient($matricule,ManagerRegistry $doctrine):Response
+    {
+        $patient = $doctrine->getRepository(Patient::class)->findOneBy(["matricule"=>$matricule]);
+        return $this->render('patient/fiche.html.twig', [
+            'patient' => $patient,
+        ]);
+    }
     /**
      * @Route("/patient/{id}/modifier", name="modifier_patient")
      */
