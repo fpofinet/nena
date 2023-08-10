@@ -14,14 +14,14 @@
 </head>
 
 <body class="">
-    <header class="bg-dark mb-0">
+    <header class="bg-dark mb-0" id="head">
         <div class="container px-4 px-lg-5">
             <div class="text-center text-white">
                 <p class="lead fw-normal text-white display-1">Hôpital</p>
             </div>
         </div>
     </header>
-    <nav class="navbar navbar-expand-sm bg-secondary justify-content-center mt-0 mb-4" >
+    <nav class="navbar navbar-expand-sm bg-secondary justify-content-center mt-0 mb-4" id="nav">
         <ul class="navbar-nav h5">
             <li class="nav-item">
                 {% if is_granted("ROLE_RECEPTIONISTE") %}

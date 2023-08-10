@@ -1,12 +1,120 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Consultation{% endblock %}
+{% block title %}Fiche patient{% endblock %}
 
 {% block body %}
-<section class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            
+<style>
+    @media print{
+       #data{width:100%;}
+        #headPrint{
+            font-size: 1.5em; 
+        }
+        #nav,#head{display:none;}
+    }
+</style>
+<section class="container" id="main">
+    <div class="container display-3 text-center fw-bold mb-3" id="headPrint">CLINIQUE DOCTEUR KEBA</div>
+    <hr />
+    <div class="" id="data">
+        <p class="h3 text-center fw-bold text-decoration-underline">Fiche patient</p>
+        <div class="card mb-4 border-0">
+            <div class="card-body fiche">
+                <div class="row border-bottom-2">
+                    <div class="col-3">
+                        <p class="mb-0">Code patient:</p>
+                    </div>
+                    <div class="col-9">
+                        <p class="mb-0 fw-bold text-decoration-underline">{{patient.matricule}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-3">
+                        <p class="mb-0">Nom : </p>
+                    </div>
+                    <div class="col-9">
+                        <p class="mb-0">{{patient.nom}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-3">
+                        <p class="mb-0">Prénom : </p>
+                    </div>
+                    <div class="col-9">
+                        <p class="mb-0">{{patient.prenom}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-3">
+                        <p class="mb-0">Téléphone : </p>
+                    </div>
+                    <div class="col-9">
+                        <p class="mb-0">{{patient.contact}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-3">
+                        <p class="mb-0">Sexe : </p>
+                    </div>
+                    <div class="col-9">
+                        <p class="mb-0">
+                            {% if patient.sexe =="F" %}
+                                {{"Féminin"}}
+                            {% else %}
+                                {{"Masculin"}}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-3">
+                        <p class="mb-0">Age : </p>
+                    </div>
+                    <div class="col-9">
+                        <p class="mb-0"> {{ patient.age}} ans  </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-3">
+                        <p class="mb-0">Addresse : </p>
+                    </div>
+                    <div class="col-9">
+                        <p class="mb-0">{{patient.adresse}}</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            {#<div class="">
+            <p class="h3 text-center fw-bold text-underline">Fiche patient</p>
+            <p class="fiche">
+                Code patient : <span class="fw-bold">{{patient.matricule}}</span> </br>
+                <hr />
+                Nom : {{ patient.nom}} </br>
+                <hr />
+                Prenom : {{ patient.prenom}} </br>
+                <hr />
+                Age : {{ patient.age}} ans </br>
+                <hr />
+                Sexe : {% if patient.sexe =="F" %}
+                {{"Féminin"}}
+                {% else %}
+                {{"Masculin"}}
+                {% endif %}
+                </br>
+                <hr />
+                Poids : {{patient.poids}} Kg </br>
+                <hr />
+                Adresse : {{patient.adresse}} </br>
+                <hr />
+                Téléphone : {{patient.contact}}
+                <hr />
+            </p>
+        </div>#}
         </div>
     </div>
 </section>
