@@ -33,14 +33,18 @@ class PatientController extends AbstractController
         $patient = new Patient();
         $form =$this->createForm(PatientType::class,$patient);
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid()){
             $patient->setAddedAt(new \DateTimeImmutable());
             $patient->setMatricule($this->generateMatricule());
             $matri=$patient->getMatricule();
             $doctrine->getManager()->persist($patient);
             $doctrine->getManager()->flush();
-            return $this->redirectToRoute("add_admission",["matricule"=>$matri]);
+            
+            if(in_array('ROLE_RECEPTIONISTE',$this->getUser()->getRoles())){
+                return $this->redirectToRoute("add_admission",["matricule"=>$matri]);
+            } else{
+                return $this->redirectToRoute("add_patient");
+            }
         }
 
         return $this->renderForm('patient/form.html.twig', [

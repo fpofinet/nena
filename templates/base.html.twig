@@ -24,7 +24,12 @@
     <nav class="navbar navbar-expand-sm bg-secondary justify-content-center mt-0 mb-4 text-light" >
         <ul class="navbar-nav h5">
             <li class="nav-item">
-                <a class="nav-link btn btn-secondary mx-2" href="{{path("app_home")}}">ACCUEIL</a>
+                {% if is_granted("ROLE_RECEPTIONISTE") %}
+                    <a class="nav-link btn btn-secondary mx-2" href="{{path("reception_home")}}">ACCUEIL</a>
+                {% endif %}
+                {% if is_granted("ROLE_MEDECIN") %}
+                    <a class="nav-link btn btn-secondary mx-2" href="{{path("medecin_home")}}">ACCUEIL</a> 
+                {% endif %}            
             </li>
             <li class="nav-item">
                 <a class="nav-link btn btn-secondary mx-2" href="{{path("app_patient")}}">Patient</a>
