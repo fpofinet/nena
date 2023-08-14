@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ordonnances{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="container w-50 mx-auto">
+        <a href="{{path("new_ordo",{'matricule':matricule})}}" class="btn btn-primary">Ajouter</a>
+
+    </div>
+    
+</div>
+{% endblock %}

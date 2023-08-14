@@ -43,7 +43,7 @@ class PatientController extends AbstractController
             if(in_array('ROLE_RECEPTIONISTE',$this->getUser()->getRoles())){
                 return $this->redirectToRoute("add_admission",["matricule"=>$matri]);
             } else{
-                return $this->redirectToRoute("add_patient");
+                return $this->redirectToRoute("app_patient");
             }
         }
 

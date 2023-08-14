@@ -43,7 +43,7 @@ class AdmissionService
         
         $admissions=$this->manager->getRepository(Admission::class)->findAll();
         foreach ($admissions as $admission) {
-            if($admission->getPatient() !=$patient->getMatricule()){
+            if($admission->getPatient() ==$patient->getMatricule()){
                 $this->manager->getManager()->remove($admission);
                 $this->manager->getManager()->flush();
             }

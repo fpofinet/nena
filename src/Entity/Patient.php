@@ -69,9 +69,15 @@ class Patient
      */
     private $consultations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Ordonnance::class, mappedBy="patient")
+     */
+    private $ordonnances;
+
     public function __construct()
     {
         $this->consultations = new ArrayCollection();
+        $this->ordonnances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,6 +217,36 @@ class Patient
             // set the owning side to null (unless already changed)
             if ($consultation->getPatient() === $this) {
                 $consultation->setPatient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ordonnance>
+     */
+    public function getOrdonnances(): Collection
+    {
+        return $this->ordonnances;
+    }
+
+    public function addOrdonnance(Ordonnance $ordonnance): self
+    {
+        if (!$this->ordonnances->contains($ordonnance)) {
+            $this->ordonnances[] = $ordonnance;
+            $ordonnance->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdonnance(Ordonnance $ordonnance): self
+    {
+        if ($this->ordonnances->removeElement($ordonnance)) {
+            // set the owning side to null (unless already changed)
+            if ($ordonnance->getPatient() === $this) {
+                $ordonnance->setPatient(null);
             }
         }
 

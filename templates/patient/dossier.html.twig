@@ -6,7 +6,7 @@
         <div class="container mb-4">
             <p class="h3 text-center fw-bold">Dossier patient</p>
             <p class="">
-                Matricule : {{patient.matricule}} </br>
+                Matricule : <span class="fw-bold">{{patient.matricule}}</span> </br>
                 Nom : {{patient.nom}} </br>
                 Prenom : {{patient.prenom}} </br>
                 Age :  {{patient.age}} ans </br>
@@ -22,28 +22,19 @@
             </p>
         </div>
         <div class="">
-            <a href="{{path("new_consul",{'matricule': patient.matricule})}}" class="btn btn-info">Ajouter</a>
+            <a href="{{path("new_consul",{'matricule': patient.matricule})}}" class="btn btn-info mx-3">Ajouter</a>
+            <a href="{{path("fiche_patient",{'matricule': patient.matricule})}}" class="btn btn-primary mx-3">fiche patient</a>
+            <a href="{{path("app_ordonnance",{'matricule': patient.matricule})}}" class="btn btn-success mx-3">Ordonnances</a>
         </div>
         <hr>
         <div class="container mb-5">
-            <p class="">
-                <span class="fw-bold">Consultation du 01/01/2023 à 00h00</span></br>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus tenetur rem eveniet sit dolores velit mollitia distinctio nisi,
-                necessitatibus numquam minima, ab ipsum culpa accusantium iste in beatae optio repudiandae.</p>
-            </p>
-            <hr>
-            <p class="">
-                <span class="fw-bold ">Consultation du 01/01/2023 à 00h00</span></br>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque consequuntur cum doloremque esse aut, 
-                temporibus est harum id ipsa beatae vitae repellendus repudiandae molestias quo eveniet tenetur aliquam atque rem. </p>
-            </p>
-            <hr>
-            <p class="">
-                <span class="fw-bold">Consultation du 01/01/2023 à 00h00</span> </br>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem, est provident a accusantium sint, 
-                temporibus ipsum maxime adipisci velit quo repudiandae, autem possimus eos modi amet! Eligendi molestias iure minus.</p>
-            </p>
-            <hr>
+            {% for consul in patient.consultations %}
+                <p class="">
+                    <span class="fw-bold">Consultation du {{consul.createdAt | date("d/m/Y")}}</span></br>
+                    <p>{{consul.diagnostic}}</p>
+                </p>
+                <hr>
+            {% endfor %}
         </div>
     </div>
 </section>

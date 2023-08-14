@@ -1,0 +1,74 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}ORDONNANCE{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <div class="w-50 mx-auto">
+            <h1 class="text-center">ORDONNANCE</h1>
+            {{ form_start(form) }}
+                <div id="item" data-prototype="{{ form_row(form.items.vars.prototype)|e('html_attr') }}">
+                    {{ form_row(form.items) }}
+                    <span></span>
+                </div>
+                <hr>
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    <script>
+        let collection, boutonAjout, span;
+        window.onload = () => {
+            collection = document.querySelector("#item");
+            span = collection.querySelector("span");
+            boutonAjout = document.createElement("button");
+            boutonAjout.className = "btn btn-success add";
+            boutonAjout.type="button";
+            boutonAjout.innerText = "Ajouter";
+
+            let nouveauBouton = span.append(boutonAjout);
+
+            collection.dataset.index = collection.querySelectorAll("input").length;
+
+            boutonAjout.addEventListener("click", function(){
+                addButton(collection, nouveauBouton);
+            });
+        }
+
+        function addButton(collection, nouveauBouton){
+            let prototype = collection.dataset.prototype;
+
+            let index = collection.dataset.index;
+
+            prototype = prototype.replace(/__name__/g, index);
+
+            let content = document.createElement("html");
+            content.innerHTML = prototype;
+            let newForm = content.querySelector("div");
+            //newForm.preventDefault();
+
+            let boutonSuppr = document.createElement("button");
+            boutonSuppr.type = "button";
+            boutonSuppr.className = "btn btn-danger";
+            boutonSuppr.id = "delete-departement-" + index;
+            boutonSuppr.innerText = "retirer";
+
+            newForm.append(boutonSuppr);
+
+            collection.dataset.index++;
+
+            let boutonAjout = collection.querySelector(".add");
+
+            span.insertBefore(newForm, boutonAjout);
+
+            boutonSuppr.addEventListener("click", function(){
+                this.previousElementSibling.parentElement.remove();
+            })
+        }
+
+    </script>
+{% endblock %}

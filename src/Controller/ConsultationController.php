@@ -37,7 +37,7 @@ class ConsultationController extends AbstractController
             $consul->setCreatedAt(new  \DateTimeImmutable());
             $doctrine->getManager()->persist($consul);
             $doctrine->getManager()->flush();
-            return $this->redirectToRoute("app_patient");
+            return $this->redirectToRoute("dossier_patient",["matricule"=>$patient->getMatricule()]);
         }
 
         return $this->renderForm('consultation/form.html.twig', [
