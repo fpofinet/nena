@@ -49,10 +49,10 @@ class AdmissionService
             }
         }
     }
+
     /*
      * Cette methode permet de retirer un patient dans la file d'attente
      */
-
     public function GetQueue()
     {
         $admissions=$this->manager->getRepository(Admission::class)->findAll();
@@ -61,5 +61,21 @@ class AdmissionService
             $patients[]=$this->manager->getRepository(Patient::class)->findOneBy(["matricule"=>$admission->getPatient()]);
         }
         return $patients;
+    }
+
+     /*
+     * Cette methode permet de retirer un patient dans la file d'attente
+     */
+    public function inQueue(?Patient $patient)
+    {
+        $admissions=$this->manager->getRepository(Admission::class)->findAll();
+        //$patients=array();
+        foreach ($admissions as $admission) {
+            if($admission->getPatient()==$patient->getMatricule()){
+                return true;
+            }
+            //$patients[]=$this->manager->getRepository(Patient::class)->findOneBy(["matricule"=>$admission->getPatient()]);
+        }
+        return false;
     }
 }

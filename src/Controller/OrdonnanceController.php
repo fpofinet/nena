@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Item;
 use App\Entity\Patient;
 use App\Entity\Ordonnance;
 use App\Form\OrdonanceType;
@@ -14,15 +15,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class OrdonnanceController extends AbstractController
 {
     /**
-     * @Route("/ordonnance/{matricule}/details", name="app_ordonnance")
+     * @Route("/ordonnance/{matricule}/patient", name="app_ordonnance")
      */
     public function index(?string $matricule,ManagerRegistry $doctrine): Response
     {
         $patient= $doctrine->getRepository(Patient::class)->findOneBy(["matricule"=>$matricule]);
-        $ordo=$doctrine->getRepository(Ordonnance::class)->findOneBy(["patient"=>$patient]);
+        $ordo=$doctrine->getRepository(Ordonnance::class)->findBy(["patient"=>$patient]);
         return $this->render('ordonnance/index.html.twig', [
-            'ordonnance'=>$ordo,
+            'ordonnances'=>$ordo,
             'matricule'=>$patient->getMatricule()
+        ]);
+    }
+     /**
+     * @Route("/ordonnance/{id}/details", name="details_ordonnance")
+     */
+    public function details(?int $id,ManagerRegistry $doctrine): Response
+    {
+        $ordo=$doctrine->getRepository(Ordonnance::class)->findOneBy(["id"=>$id]);
+        return $this->render('ordonnance/details.html.twig', [
+            'ordonnance'=>$ordo,
         ]);
     }
     /**
@@ -49,5 +60,38 @@ class OrdonnanceController extends AbstractController
             'form'=>$form,
             'editState'=>$ordo->getId() !==null
         ]);
+    }
+
+    /**
+     * @Route("/ordonnance/{id}/update",name="update_ordo")
+     */
+    public function updateOrdo(?int $id,ManagerRegistry $doctrine, Request $request):Response
+    {
+        $ordo= $doctrine->getRepository(Ordonnance::class)->findOneBy(["id"=>$id]);
+        $form= $this->createForm(OrdonanceType::class,$ordo);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $doctrine->getManager()->persist($ordo);
+            $doctrine->getManager()->flush();
+            return $this->redirectToRoute("details_ordonnance",["id"=>$id]);
+        }
+        return $this->renderForm('ordonnance/form.html.twig', [
+            'form'=>$form,
+            'editState'=>$ordo->getId() !==null
+        ]);
+    }
+
+     /**
+     * @Route("/ordonnance/{id}/remove/item",name="rm_item")
+     */
+    public function removeItem(?int $id,ManagerRegistry $doctrine):Response
+    {
+        $item= $doctrine->getRepository(Item::class)->findOneBy(["id"=>$id]);
+        $id=$item->getOrdonnance()->getId();
+        //dd($id);
+        $doctrine->getManager()->remove($item);
+        $doctrine->getManager()->flush();
+        
+        return $this->redirectToRoute("details_ordonnance",["id"=>$id]);
     }
 }

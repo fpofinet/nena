@@ -5,6 +5,7 @@ namespace App\Controller;
 use DateTimeImmutable;
 use App\Entity\Patient;
 use App\Form\PatientType;
+use App\Service\AdmissionService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,9 +55,12 @@ class PatientController extends AbstractController
     /**
      * @Route("/patient/{matricule}/dossier", name="dossier_patient")
      */
-    public function dossierPatient($matricule,ManagerRegistry $doctrine):Response
+    public function dossierPatient($matricule,ManagerRegistry $doctrine,AdmissionService $service):Response
     {
         $patient = $doctrine->getRepository(Patient::class)->findOneBy(["matricule"=>$matricule]);
+        if($service->inQueue($patient)==true){
+            $service->removeQueue($patient);
+        }
         return $this->render('patient/dossier.html.twig', [
             'patient' => $patient,
         ]);
