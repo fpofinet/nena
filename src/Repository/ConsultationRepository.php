@@ -39,6 +39,21 @@ class ConsultationRepository extends ServiceEntityRepository
         }
     }
 
+    public function statistique(){
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "SELECT COUNT(*) AS total,created_at AS dateConsul FROM consultation GROUP BY month(created_at);";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchAllAssociative();
+    }
+
+    public function getCurrentMonthCounnt():int{
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "SELECT COUNT(*) from consultation WHERE month(created_at)=month(now());";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchOne();
+    }
 //    /**
 //     * @return Consultation[] Returns an array of Consultation objects
 //     */

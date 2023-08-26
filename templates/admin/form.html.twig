@@ -1,0 +1,15 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% extends 'admin.html.twig' %}
+
+{% block title %}ADMIN{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <div class="w-50 mx-auto">
+            <h1 class="text-center">CREATE USER</h1>
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}

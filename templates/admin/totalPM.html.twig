@@ -1,0 +1,23 @@
+{% extends "admin.html.twig" %}
+{% block body %}
+    <div class="container">
+        <diV class="mx-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre de consultation</th>
+                        <th>Mois</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in datas %}
+                        <tr>
+                            <td>{{data.total}}</td>
+                            <td>{{data.dateConsul | format_date(pattern="MMMM",locale="fr") }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </diV>
+    </div>
+{% endblock body %}

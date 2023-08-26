@@ -1,0 +1,98 @@
+{% extends "admin.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <div class="row gy-3">
+        <div class="col-lg-3">
+            <div class="card p-3 bg-secondary">
+                <p class="text-center">Nombre total de patient</p>
+                <p class="h2 text-center">{{totalPatient}}</p>
+                <a href="{{path("app_patient")}}" class="stretched-link"></a>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card p-3 bg-secondary">
+                <p class="text-center">Nombre total de consultation</p>
+                <p class="h2 text-center">{{totalConsul}}</p>
+                <a href="{{path("stats_pm")}}" class="stretched-link"></a>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card p-3 bg-secondary">
+                <p class="text-center">Nouveau patient ({{ date| format_date(pattern="MMMM",locale="fr") }})</p>
+                <p class="h2 text-center">{{patientDM}}</p>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card p-3 bg-secondary">
+                <p class="text-center">Consultation du mois ({{ date| format_date(pattern="MMMM",locale="fr") }})</p>
+                <p class="h2 text-center">{{consulDM}}</p>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card p-3 bg-secondary">
+                <p class="text-center">Prix d'une consultation</p>
+                <p class="h2 text-center">{{"5.000 Fcfa"}}</p>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card p-3 bg-secondary">
+                <p class="text-center">Total du mois</p>
+                <p class="h2 text-center">
+                    {% set base = consulDM * 5000 %}
+                    {% set count = ( base | length )  // 3 %}
+                    {% if ( base | length ) % 3 != 0 %}
+                        {% set count = count + 1 %}
+                    {% endif %}
+                    {% set output = "" %}
+                    
+                    {% for i in 0.. count - 1 %}
+                        {% if (output|length)>2 %}
+                            {% set output = base| slice(-3) ~"."~ output %}
+                        {% else %}
+                            {% set output = base| slice(-3) ~ output %}
+                        {% endif %}
+                        
+                        {% set base = base | slice(0,(base|length) - 3 ) %}
+                    {% endfor %}
+                    {{output~" Fcfa"}}
+                </p>
+            </div>
+        </div>
+       {# <div class="col-lg-3">
+            <div class="card p-3 bg-secondary">
+                <p class="text-center">Total du mois</p>
+                <p class="h2 text-center">
+                    {% set base ="1505005" %}
+                    {% set count = ( base | length )  // 3 %}
+                    {% if ( base | length ) % 3 != 0 %}
+                        {% set count = count + 1 %}
+                    {% endif %}
+                    {% set output = "" %}
+                    
+                    {% for i in 0.. count - 1 %}
+                        {% if (output|length)>2 %}
+                            {% set output = base| slice(-3) ~"."~ output %}
+                        {% else %}
+                            {% set output = base| slice(-3) ~ output %}
+                        {% endif %}
+                        
+                        {% set base = base | slice(0,(base|length) - 3 ) %}
+                    {% endfor %}
+                    {{output}}
+                </p>
+            </div>
+        </div>
+    {% for data in datas %}
+        <div class="col-lg-3">
+            <div class="card bg-secondary">
+                <div class="card-body">
+                    <p class="fw-bold">date du :{{data.dateConsul | date("d-m-Y")}}</p>
+                    <p class="h5">nombre de patient traités: <span class="h3 fw-bold">{{data.total}}</span></p>
+                </div>
+            </div>
+        </div>
+    {% endfor %} #}
+    </div>
+</div> 
+{% endblock body %}

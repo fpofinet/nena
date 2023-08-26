@@ -39,6 +39,13 @@ class PatientRepository extends ServiceEntityRepository
         }
     }
 
+    public function getCurrentMonthCount():int{
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "SELECT COUNT(*) FROM patient WHERE month(added_at)=month(now());";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchOne();
+     }
 //    /**
 //     * @return Patient[] Returns an array of Patient objects
 //     */

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Hopital{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> 
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #} 
+    {% block stylesheets %} 
+        {{ encore_entry_link_tags('app') }} 
+    {% endblock %} 
+    {% block javascripts %} 
+        {{ encore_entry_script_tags('app') }} 
+    {% endblock %}
+</head>
+
+<body class="">
+    <header class="bg-dark mb-0" id="head">
+        <div class="container px-4 px-lg-5">
+            <div class="text-center text-white">
+                <p class="lead fw-normal text-white display-1">TABLEAU DE BORD</p>
+            </div>
+        </div>
+    </header>
+    <div class="row">
+        <div class="col-lg-2 col-md-4">
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-center text-white">
+                    <span>Utilisateurs</span>
+                </div>
+                <div class="card-body d-flex flex-column p-2">
+                    <a href="{{path("app_admin")}}" class="btn btn-lg bg-secondary mb-2">Liste</a>
+                    <a href="{{path("new_user")}}" class="btn btn-lg bg-secondary ">Ajouter</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-primary text-center text-white">
+                    <span>Statistiques</span>
+                </div>
+                <div class="card-body d-flex flex-column p-2">
+                    <a href="{{path("stats")}}" class="btn btn-lg bg-secondary ">Statistiques</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-8">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
